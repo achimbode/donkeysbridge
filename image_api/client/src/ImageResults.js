@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import './ImageResults.css';
+import UnsplashImageSearch from './services/UnsplashImageSearch.js';
 
 class ImageResults extends Component {
   constructor(props) {
     super(props);
-    this.testmode = true;
-    this.local_api = 'unsplash_demo_call.json';
-    this.unsplash_api = 'https://api.unsplash.com/photos/?client_id=53277b4a8317b3343b7f50f877114bc33135187e3cf5a2276dcfb9bb5bd6e96a';
+    this.dataProvider = new UnsplashImageSearch({get_local:true});
     this.state = {
       imgs: []
     };
@@ -15,8 +14,7 @@ class ImageResults extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
   }
   componentDidMount() {
-    const fetchUrl = this.testmode ? this.local_api : this.unsplash_api;
-  	fetch(fetchUrl, { mode: 'no-cors' })
+    this.dataProvider.getPromise()
   		.then(res => res.json())
   		.then(data => {
         console.log(data[0].links.self);
