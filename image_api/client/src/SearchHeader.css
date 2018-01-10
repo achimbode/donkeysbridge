@@ -1,0 +1,37 @@
+.SearchHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+}
+
+.SearchHeader-logo {
+  /* animation: SearchHeader-logo-spin infinite 20s linear; */
+  height: 30px;
+  width: 30px;
+}
+
+input {
+  width: 70%;
+}
+
+.SearchHeader-header {
+  background-color: #222;
+  height: 50px;
+  padding: 20px;
+  color: white;
+}
+
+.SearchHeader-title {
+  font-size: 1.5em;
+}
+
+.SearchHeader-intro {
+  font-size: large;
+}
+
+@keyframes SearchHeader-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
