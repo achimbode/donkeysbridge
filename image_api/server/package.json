@@ -1,0 +1,38 @@
+{
+  "name": "soloserver",
+  "version": "1.0.0",
+  "description": "builds donkeys bridges for vocabulary",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "../../.git"
+  },
+  "keywords": [
+    "vocabulary",
+    "trainer",
+    "images",
+    "mnemonic",
+    "memory",
+    "hook",
+    "Eselsbrücke"
+  ],
+  "author": "Achim Bode",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-cors": "0.0.16",
+    "koa-logger": "^3.1.0",
+    "koa-request": "^1.0.0",
+    "koa-router": "^7.3.0",
+    "koa2-request-middleware": "^2.2.9",
+    "lodash": "^4.17.4",
+    "lodash.isarray": "^4.0.0",
+    "node-fetch": "^1.7.3",
+    "simple-redis-cache": "^1.6.1"
+  }
+}
