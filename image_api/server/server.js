@@ -7,7 +7,6 @@ const request = require('koa-request');
 const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
 const unsplash = require('./secrets/unsplash.js');
-const RedisCache = require('simple-redis-cache');
 const _ = require('lodash');
 _.isarray = require('lodash.isarray'); // Error: Cannot find module 'lodash.isarray' ?!
 
@@ -23,12 +22,13 @@ router.get('/', (ctx, next) => {
 });
 
 router.get('/unsplash', async (ctx,next) => {
-  let url = 'https://api.unsplash.com/photos/?query=beach&client_id=' + unsplash.client_id;
-  var response = await fetch(url)
+  let query = 'beach'
+  let url = 'https://api.unsplash.com/photos/?query=' + query + '&client_id=' + unsplash.client_id;
+  const response = await fetch(url)
   .then( response => response.json() )
   .then( data => formatUnsplash(data) ) // CAUTION: is it an Object???! Array?!
   //.catch( err => {console.log(err); return getBufferedFromRedis()})
-  await bufferInRedis(response); // actually: no await // middleware module later in row?
+  //await (?) bufferInRedis(response); // actually: no await // middleware module later in row?
   ctx.body = JSON.stringify(response);
   //console.log(ctx.body);
   ctx.status = 200;
@@ -46,18 +46,16 @@ function formatUnsplash(arrFromApi) {
   return Object.values(arrConverted);
 }
 
-// ERROR: Error: Cannot find module 'lodash.isarray'
-async function bufferInRedis(arrConverted) {
-  const unsplashRedis = new RedisCache({name:'unsplash'});
-  for (var i = 0; i < arrConverted.length; i++) {
-    console.log(arrConverted[i].id);
-  }
-  unsplashRedis.set(arrConverted[0].id, arrConverted[0]);
-  var back = await unsplashRedis.get(arrConverted[0].id);
-  console.log('back from redis: ', back.thumb);
-}
+// async function bufferInRedis(query, arrConverted) {
+//   console.log('buffering ' + query);
+//   unsplashQueries.set(query, arrConverted);
+//   var back = await redisImages.get(query);
+//   console.log('back from redis: img[0] = ', back[0].id);
+// }
 
-// function getBufferedFromRedis(formattedPlainObject) {}
+// async function getBufferedFromRedis(query) {
+//   return await redisImages.get(query);
+// }
 
 
 const port = 3001;

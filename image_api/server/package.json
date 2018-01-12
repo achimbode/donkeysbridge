@@ -33,6 +33,7 @@
     "lodash": "^4.17.4",
     "lodash.isarray": "^4.0.0",
     "node-fetch": "^1.7.3",
+    "redis-dump": "^0.1.10",
     "simple-redis-cache": "^1.6.1"
   }
 }
